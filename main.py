@@ -6,13 +6,20 @@ class Renderer():
         self.root.title("Python Renderer")
         self.root.geometry("800x600")
         self.canvas = tk.Canvas(self.root, width=800, height=600)
-
-        self.root.mainloop()
-    def renderCube(self, data):
-        x, y, z, size, color = data
-        print(data)
-
+        self.canvas.pack()
+        
+    def renderCube(self, cameraPos, blockData):
+        x, y, z, size, color = blockData
+        self.canvas.create_rectangle(x-size/2, y-size/2, x+size/2, y+size/2, fill="black")
+    
+    def render(self):
+        self.canvas.update()
+        self.canvas.delete("all")
+        
+        
 
 if __name__ == "__main__":
     renderer = Renderer()
-    renderer.renderCube([0, 0, 0, 100, "000000"])
+    while True:
+        renderer.renderCube([0, 0, 0], [0, 0, 0, 100, "black"])
+        renderer.render()
